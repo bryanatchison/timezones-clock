@@ -66,6 +66,11 @@ window = sg.Window('Timezone Clock',
 
 while True:
     event, values = window.read(timeout=1000)
+    match event:
+        case sg.WIN_CLOSED:
+            break
+        case "Exit":
+            break
     if values['dst_no']:
         central_utc_offset = cst_utc_offset
         eastern_utc_offset = est_utc_offset
@@ -88,11 +93,5 @@ while True:
     window["hour_home"].update(value=current_central_time[11:13])
     window["hour_work"].update(value=current_eastern_time[11:13])
     window["minutes"].update(value=f": {current_utc_time[14:16]}")
-    match event:
-
-        case sg.WIN_CLOSED:
-            break
-        case "Exit":
-            break
 
 window.close()
