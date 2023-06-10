@@ -1,46 +1,8 @@
 import PySimpleGUI as PySG
-import calendar as cal
 from datetime import datetime as dt2
 import datetime as dt
-
-current_utc_time = \
-    dt2.isoformat(dt2.now().astimezone(dt.timezone(dt.timedelta(0))))
-
-c = cal.Calendar(firstweekday=cal.SUNDAY)
-
-current_year = int(current_utc_time[:4])
-current_month = int(current_utc_time[5:7])
-current_day = int(current_utc_time[8:10])
-current_hour = int(current_utc_time[11:13])
-
-mar_cal = c.monthdatescalendar(current_year, 3)
-nov_cal = c.monthdatescalendar(current_year, 11)
-mar_second_sunday = [day for week in mar_cal for day in week if
-                day.weekday() == cal.SUNDAY and
-                day.month == 3][1]
-nov_first_sunday = [day for week in nov_cal for day in week if
-                day.weekday() == cal.SUNDAY and
-                day.month == 11][0]
-
-if current_month >= 3:
-    dst_flag = False
-elif current_month == 3:
-    if
-elif current_month = 12:
-    dst_flag = False
-
-else:
-    False
-
-edt_utc_offset = -4
-est_utc_offset = -5
-cdt_utc_offset = -5
-cst_utc_offset = -6
-
-if int(current_utc_time[5:7]) >= 3 and int(current_utc_time[5:7]) >= 3:
-    dst_month = True
-else:
-    dst_month = False
+import pytz
+import calendar as cal
 
 
 PySG.theme("DarkBlue13")
@@ -60,18 +22,14 @@ hour_work = PySG.Text('', key='hour_work',
                       font=('Helvetica', 60))
 label_home = PySG.Text("Home",
                        # size=(10, 1),
-                       font=('Helvetica', 15))
+                       font=('Helvetica', 18))
 minutes = PySG.Text('', key='minutes',
                     # size=(5, 1),
                     font=('Helvetica', 60))
 label_work = PySG.Text("Work",
                        # size=(10, 1),
-                       font=('Helvetica', 15))
-dst_no_selector = PySG.Radio("Standard Time", key='dst_no', group_id="dst_selection",
-                             default=not dst_month)
-dst_yes_selector = PySG.Radio("Daylight Saving", key='dst_yes', group_id="dst_selection",
-                              default=dst_month)
-exit_button = PySG.Button("Exit", size=11,
+                       font=('Helvetica', 18))
+exit_button = PySG.Button("Exit",
                           font=('Helvetica', 15))
 
 left_column_content = [[hour_home],
@@ -79,9 +37,7 @@ left_column_content = [[hour_home],
 middle_column_content = [[label_home],
                          [minutes],
                          [label_work]]
-right_column_content = [[dst_no_selector],
-                        [dst_yes_selector],
-                        [exit_button]]
+right_column_content = [[exit_button]]
 
 left_column = PySG.Column(left_column_content)
 middle_column = PySG.Column(middle_column_content)
@@ -92,33 +48,73 @@ window = PySG.Window('Timezone Clock',
                            [left_column, middle_column, right_column]])
 
 while True:
-    event, values = window.read(timeout=200)
+    event, values = window.read(timeout=500)
     match event:
         case PySG.WIN_CLOSED:
             break
         case "Exit":
             break
-    if values['dst_no']:
-        central_utc_offset = cst_utc_offset
-        eastern_utc_offset = est_utc_offset
-    elif values['dst_yes']:
-        central_utc_offset = cdt_utc_offset
-        eastern_utc_offset = edt_utc_offset
-    else:
-        central_utc_offset = cst_utc_offset
-        eastern_utc_offset = est_utc_offset
 
-    current_central_time = \
-        dt2.isoformat(dt2.now()
-                      .astimezone(dt.timezone(dt.timedelta(hours=central_utc_offset))))
-    current_eastern_time = \
-        dt2.isoformat(dt2.now()
-                      .astimezone(dt.timezone(dt.timedelta(hours=eastern_utc_offset))))
-    current_utc_time = \
-        dt2.isoformat(dt2.now()
-                      .astimezone(dt.timezone(dt.timedelta(0))))
-    window["hour_home"].update(value=current_central_time[11:13])
-    window["hour_work"].update(value=current_eastern_time[11:13])
-    window["minutes"].update(value=f": {current_utc_time[14:16]}")
+    current_utc_datetime = dt2.now(pytz.utc)
+
+    current_utc_date = current_utc_datetime.date()
+    current_utc_year = current_utc_datetime.year
+    current_utc_hour = current_utc_datetime.hour
+    current_utc_minute = current_utc_datetime.minute
+
+    utc_cal = cal.Calendar(firstweekday=cal.SUNDAY)
+    mar_cal = utc_cal.monthdatescalendar(current_utc_year, 3)
+    nov_cal = utc_cal.monthdatescalendar(current_utc_year, 11)
+
+    mar_second_sunday = [day for week in mar_cal for day in week if
+                         day.weekday() == cal.SUNDAY and
+                         day.month == 3][1]
+    nov_first_sunday = [day for week in nov_cal for day in week if
+                        day.weekday() == cal.SUNDAY and
+                        day.month == 11][0]
+
+    if current_utc_date < mar_second_sunday:
+        ct_utc_offset = -6
+        et_utc_offset = -5
+    elif current_utc_date == mar_second_sunday:
+        if current_utc_hour < 7:
+            ct_utc_offset = -6
+            et_utc_offset = -5
+        if 7 <= current_utc_hour < 8:
+            ct_utc_offset = -6
+            et_utc_offset = -4
+        else:
+            ct_utc_offset = -5
+            et_utc_offset = -4
+    elif mar_second_sunday < current_utc_date < nov_first_sunday:
+        ct_utc_offset = -5
+        et_utc_offset = -4
+    elif current_utc_date == nov_first_sunday:
+        if current_utc_hour < 6:
+            ct_utc_offset = -5
+            et_utc_offset = -4
+        if 6 <= current_utc_hour < 7:
+            ct_utc_offset = -5
+            et_utc_offset = -5
+        else:
+            ct_utc_offset = -6
+            et_utc_offset = -5
+    else:  # nov_first_sunday < current_utc_date
+        ct_utc_offset = -6
+        et_utc_offset = -5
+
+    if current_utc_hour + ct_utc_offset < 0:
+        current_ct_hour = current_utc_hour + ct_utc_offset + 24
+    else:
+        current_ct_hour = current_utc_hour + ct_utc_offset
+
+    if current_utc_hour + et_utc_offset < 0:
+        current_et_hour = current_utc_hour + et_utc_offset + 24
+    else:
+        current_et_hour = current_utc_hour + et_utc_offset
+
+    window["hour_home"].update(value=str(current_ct_hour))
+    window["hour_work"].update(value=str(current_et_hour))
+    window["minutes"].update(value=f": {str(current_utc_minute)}")
 
 window.close()
