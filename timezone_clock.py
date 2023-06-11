@@ -39,7 +39,8 @@ label_work = PySG.Text('\nET', key='label_work',
                        font=(font_choice, 18))
 minutes_digits = PySG.Text('', key='minutes_digits',
                            font=(font_choice, 60))
-print(label_work.fonts_installed_list())
+# Check installed fonts:
+# print(label_work.fonts_installed_list())
 
 left_far_column_content = [[hour_home],
                            [hour_work]]
