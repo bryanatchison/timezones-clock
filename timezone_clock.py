@@ -5,18 +5,20 @@ import pytz
 
 # Set up GUI layout.
 PySG.theme('DarkBlue13')
+font_choice = 'Trebuchet MS'
 hour_home = PySG.Text('', key='hour_home',
-                      font=('Helvetica', 60),)
+                      font=(font_choice, 60),)
 hour_work = PySG.Text('', key='hour_work',
-                      font=('Helvetica', 60))
-label_home = PySG.Text('home\n', key='label_home',
-                       font=('Helvetica', 18))
+                      font=(font_choice, 60))
+label_home = PySG.Text('CT\n', key='label_home',
+                       font=(font_choice, 18))
 label_blank_1 = PySG.Text('', key='label_blank_1',
-                          font=('Helvetica', 3))
-label_work = PySG.Text('\nwork', key='label_work',
-                       font=('Helvetica', 18))
+                          font=(font_choice, 3))
+label_work = PySG.Text('\nET', key='label_work',
+                       font=(font_choice, 18))
 minutes_digits = PySG.Text('', key='minutes_digits',
-                           font=('Helvetica', 60))
+                           font=(font_choice, 60))
+print(label_work.fonts_installed_list())
 
 left_far_column_content = [[hour_home],
                            [hour_work]]
