@@ -1,3 +1,6 @@
+# Timezone Clock
+# Version 2.3
+
 # Import modules for GUI and handling datetimes and timezones.
 import PySimpleGUI as PySG
 from datetime import datetime as dt2
