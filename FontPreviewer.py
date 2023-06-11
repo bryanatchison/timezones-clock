@@ -1,3 +1,5 @@
+# From PySimpleGUI GitHub
+# https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_Font_Previewer.py
 import PySimpleGUI as sg
 
 '''

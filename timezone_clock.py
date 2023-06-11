@@ -3,8 +3,29 @@ import PySimpleGUI as PySG
 from datetime import datetime as dt2
 import pytz
 
+
+# Add your new theme colors and settings
+# From vigneshsuresh4499
+# https://www.geeksforgeeks.org/adding-customized-color-theme-in-pysimplegui/#article-meta-div
+PySG.LOOK_AND_FEEL_TABLE['MyCreatedTheme'] = {'BACKGROUND': '#163D5C',  # 000066
+                                            'TEXT': '#7DCDF1',  # FFCC66
+                                            'INPUT': '#339966',
+                                            'TEXT_INPUT': '#000000',
+                                            'SCROLL': '#99CC99',
+                                            'BUTTON': ('#003333', '#FFCC66'),
+                                            'PROGRESS': ('#D1826B', '#CC8019'),
+                                            'BORDER': 1, 'SLIDER_DEPTH': 0,
+                                            'PROGRESS_DEPTH': 0, }
+
+# Switch to use your newly created theme
+PySG.theme('MyCreatedTheme')
+
+# Call a popup to show what the theme looks like
+# PySG.popup_get_text('This how the MyNewTheme is created')
+# End vigneshsuresh4499 section
+
 # Set up GUI layout.
-PySG.theme('DarkBlue13')
+# PySG.theme('DarkBlue13')
 font_choice = 'Trebuchet MS'
 hour_home = PySG.Text('', key='hour_home',
                       font=(font_choice, 60),)
@@ -54,8 +75,8 @@ while True:
         dt2.now(pytz.utc).astimezone(pytz.timezone('America/New_York'))
 
     # Use times to update GUI window
-    window['hour_home'].update(value=str(current_us_ct_datetime.hour))
-    window['hour_work'].update(value=str(current_us_et_datetime.hour))
+    window['hour_home'].update(value=('0' + str(current_us_ct_datetime.hour))[-2:])
+    window['hour_work'].update(value=('0' + str(current_us_et_datetime.hour))[-2:])
     window['minutes_digits'].update(
         value=('0' + str(current_utc_datetime.minute))[-2:])
 
