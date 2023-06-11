@@ -4,83 +4,35 @@ from datetime import datetime as dt2
 import pytz
 
 # Set up GUI layout.
+PySG.theme('DarkBlue13')
 hour_home = PySG.Text('', key='hour_home',
-                      font=('Helvetica', 60),
-                      text_color='White',
-                      background_color='Black')
+                      font=('Helvetica', 60),)
 hour_work = PySG.Text('', key='hour_work',
-                      font=('Helvetica', 60),
-                      text_color='White',
-                      background_color='Black')
-label_home = PySG.Text('home\n',  key='label_home',
-                       font=('Helvetica', 18),
-                       text_color='White',
-                       background_color='Black')
+                      font=('Helvetica', 60))
+label_home = PySG.Text('home\n', key='label_home',
+                       font=('Helvetica', 18))
 label_blank_1 = PySG.Text('', key='label_blank_1',
-                          font=('Helvetica', 8),
-                          text_color='White',
-                          background_color='Black')
-label_blank_2 = PySG.Text('', key='label_blank_2',
-                          font=('Helvetica', 9),
-                          text_color='White',
-                          background_color='Black')
+                          font=('Helvetica', 3))
 label_work = PySG.Text('\nwork', key='label_work',
-                       font=('Helvetica', 18),
-                       text_color='White',
-                       background_color='Black')
+                       font=('Helvetica', 18))
 minutes_digits = PySG.Text('', key='minutes_digits',
-                           font=('Helvetica', 60),
-                           text_color='White',
-                           background_color='Black')
-label_blank_3 = PySG.Text('', key='label_blank_1',
-                          font=('Helvetica', 18),
-                          text_color='White',
-                          background_color='Black')
-label_blank_4 = PySG.Text('', key='label_blank_2',
-                          font=('Helvetica', 18),
-                          text_color='White',
-                          background_color='Black')
-minutes_label = PySG.Text('minutes', key='minutes_label',
-                          font=('Helvetica', 18),
-                          text_color='White',
-                          background_color='Black')
-label_blank_5 = PySG.Text('', key='label_blank_2',
-                          font=('Helvetica', 18),
-                          text_color='White',
-                          background_color='Black')
+                           font=('Helvetica', 60))
 
 left_far_column_content = [[hour_home],
                            [hour_work]]
 left_middle_column_content = [[label_home],
                               [label_blank_1],
-                              [label_blank_2],
                               [label_work]]
 right_middle_column_content = [[minutes_digits]]
-right_far_column_content = [[label_blank_3],
-                            [label_blank_4],
-                            [minutes_label],
-                            [label_blank_5]]
 
-left_far_column = PySG.Column(left_far_column_content,
-                              background_color='Black',
-                              pad=((2, 1), (2, 2)))
-left_middle_column = PySG.Column(left_middle_column_content,
-                                 background_color='Black',
-                                 pad=((1, 2), (2, 2)))
-right_middle_column = PySG.Column(right_middle_column_content,
-                                  background_color='Black',
-                                  pad=((2, 1), (2, 2)))
-right_far_column = PySG.Column(right_far_column_content,
-                               background_color='Black',
-                               pad=((1, 2), (2, 2)))
+left_column = PySG.Column(left_far_column_content)
+middle_column = PySG.Column(left_middle_column_content)
+right_column = PySG.Column(right_middle_column_content)
 
 # Initialize GUI window.
 window = PySG.Window('Timezone Clock',
-                     layout=[[left_far_column, left_middle_column,
-                              right_middle_column, right_far_column]],
-                     background_color='Black',
+                     layout=[[left_column, middle_column, right_column]],
                      grab_anywhere=True)
-
 
 # While loop for running clock:
 while True:
