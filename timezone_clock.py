@@ -29,23 +29,23 @@ PySG.theme('MyCreatedTheme')
 
 # Set up GUI layout.
 # PySG.theme('DarkBlue13')
-font_choice = 'Trebuchet MS'
+font_choice = 'Aharoni'
 hour_home = PySG.Text('', key='hour_home',
-                      font=(font_choice, 60),)
+                      font=(font_choice, 100),)
 hour_work = PySG.Text('', key='hour_work',
-                      font=(font_choice, 60))
+                      font=(font_choice, 100))
 ct_dot = PySG.Image(key='ct_dot',
-                    source='CT dot - square.png',
+                    source='CT dot.png',
                     size=(50, 50),
-                    subsample=15)
+                    subsample=4)
 label_blank_1 = PySG.Text('', key='label_blank_1',
-                          font=(font_choice, 24))
+                          font=(font_choice, 60))
 et_dot = PySG.Image(key='et_dot',
-                    source='ET dot - square.png',
+                    source='ET dot.png',
                     size=(50, 50),
-                    subsample=15)
+                    subsample=4)
 minutes_digits = PySG.Text('', key='minutes_digits',
-                           font=(font_choice, 60))
+                           font=(font_choice, 100))
 # Check installed fonts:
 # print(label_work.fonts_installed_list())
 
