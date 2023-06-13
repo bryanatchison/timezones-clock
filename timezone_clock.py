@@ -6,19 +6,18 @@ import PySimpleGUI as PySG
 from datetime import datetime as dt2
 import pytz
 
-
 # Add your new theme colors and settings
 # From vigneshsuresh4499
 # https://www.geeksforgeeks.org/adding-customized-color-theme-in-pysimplegui/#article-meta-div
 PySG.LOOK_AND_FEEL_TABLE['MyCreatedTheme'] = {'BACKGROUND': '#163D5C',  # 000066
-                                            'TEXT': '#7DCDF1',  # FFCC66
-                                            'INPUT': '#339966',
-                                            'TEXT_INPUT': '#000000',
-                                            'SCROLL': '#99CC99',
-                                            'BUTTON': ('#003333', '#FFCC66'),
-                                            'PROGRESS': ('#D1826B', '#CC8019'),
-                                            'BORDER': 1, 'SLIDER_DEPTH': 0,
-                                            'PROGRESS_DEPTH': 0, }
+                                              'TEXT': '#7DCDF1',  # FFCC66
+                                              'INPUT': '#339966',
+                                              'TEXT_INPUT': '#000000',
+                                              'SCROLL': '#99CC99',
+                                              'BUTTON': ('#003333', '#FFCC66'),
+                                              'PROGRESS': ('#D1826B', '#CC8019'),
+                                              'BORDER': 1, 'SLIDER_DEPTH': 0,
+                                              'PROGRESS_DEPTH': 0, }
 
 # Switch to use your newly created theme
 PySG.theme('MyCreatedTheme')
@@ -31,7 +30,7 @@ PySG.theme('MyCreatedTheme')
 # PySG.theme('DarkBlue13')
 font_choice = 'Gill Sans MT'
 hour_home = PySG.Text('', key='hour_home',
-                      font=(font_choice, 100),)
+                      font=(font_choice, 100), )
 hour_work = PySG.Text('', key='hour_work',
                       font=(font_choice, 100))
 ct_dot = PySG.Image(key='ct_dot',
