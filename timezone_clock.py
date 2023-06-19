@@ -1,5 +1,5 @@
 # Timezone Clock
-# Version 2.4.1
+# Version 2.5
 
 # Import modules for GUI and handling datetimes and timezones.
 import PySimpleGUI as PySG
@@ -30,21 +30,28 @@ PySG.theme('MyCreatedTheme')
 # PySG.theme('DarkBlue13')
 font_choice = 'Gill Sans MT'
 hour_home = PySG.Text('', key='hour_home',
-                      font=(font_choice, 100), )
+                      font=(font_choice, 100),
+                      tooltip='Hour of the day in 24-hour format\n'
+                              'for the US Central Time (CT) zone')
 hour_work = PySG.Text('', key='hour_work',
-                      font=(font_choice, 100))
+                      font=(font_choice, 100),
+                      tooltip='Hour of the day in 24-hour format\n'
+                              'for the US Eastern Time (ET) zone')
 ct_dot = PySG.Image(key='ct_dot',
                     source='CT dot.png',
                     size=(50, 50),
-                    subsample=4)
+                    subsample=4,
+                    tooltip='US Central Time')
 label_blank_1 = PySG.Text('', key='label_blank_1',
                           font=(font_choice, 60))
 et_dot = PySG.Image(key='et_dot',
                     source='ET dot.png',
                     size=(50, 50),
-                    subsample=4)
+                    subsample=4,
+                    tooltip='US Eastern Time')
 minutes_digits = PySG.Text('', key='minutes_digits',
-                           font=(font_choice, 100))
+                           font=(font_choice, 100),
+                           tooltip='Minutes of the hour for both CT and ET')
 # Check installed fonts:
 # print(label_blank_1.fonts_installed_list())
 

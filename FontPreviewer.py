@@ -17,7 +17,7 @@ fonts = sg.Text.fonts_installed_list()
 
 sg.theme('Black')
 
-layout = [[sg.Text('06 12 13 39',
+layout = [[sg.Text('adagio A a 9 # C',
                    size=(20, 1),
                    click_submits=True,
                    relief=sg.RELIEF_GROOVE,
